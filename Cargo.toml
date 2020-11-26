@@ -1,0 +1,8 @@
+[package]
+name="mp3-tagging"
+version="0.0.1"
+authors=["Jakub Trzeciak <jptrzy@protonmail.com>"]
+edition="2018"
+
+[dependencies]
+id3 = "0.5.1"
