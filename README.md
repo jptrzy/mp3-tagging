@@ -1,5 +1,5 @@
 # mp3-tagging
-MP3-tagging is my personal script to automatically tag my music.
+MP3-tagging is my personal script to automatically tag mp3.
 
 ## Installation
 

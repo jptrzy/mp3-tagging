@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
     name='mp3-tagging',
     version='1.0',
-    description='A useful module',
+    description='Personal script to automatically tag mp3 files.',
     license="GPL-3.0",
     author='jptrzy',
     author_email='jptrzy@gmail.com',
