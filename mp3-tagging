@@ -1,0 +1,65 @@
+#!/bin/python
+
+import sys
+from os.path import expanduser
+from os import scandir, walk
+from mutagen.easyid3 import EasyID3
+
+def retag_mp3(name, path):
+    audio = EasyID3(path)
+    print(name)
+    #s = int(MP3(path).info.length)
+    #m = int(s/60)
+    #s = s%60
+    #print("{:>2}:{:<2}".format(m, s))
+    #print( audio["tracknumber"] )
+    audio.clear()
+    argv = name.split(" - ")
+    n = len(argv)
+    
+    if(n == 1):
+        audio["title"] = argv[0]
+    elif(n == 2):
+        audio["artist"] = argv[0]
+        audio["title"]  = argv[1]
+    elif(n == 3):
+        audio["artist"] = argv[0]
+        audio["album"]  = argv[1]
+        audio["title"]  = argv[2]
+
+    elif(n == 4):
+        audio["artist"]         = argv[0]
+        audio["album"]          = argv[1]
+        audio["tracknumber"]    = argv[2].replace("|", "/")
+        audio["title"]          = argv[3]
+
+    else:
+        print("\033[5;41m[E]\033[0m\033[31m Mp3 name have {}(n) \" - \" !!!\033[0m".format(n))
+    audio.save()
+
+
+
+def main(argv):
+
+    path = ""
+    if( len(argv) > 1 ):
+        path=argv[1]
+    else:
+        path=expanduser("~")+"/Music"
+
+    #TEST
+    #path="example"
+    for entry in scandir(path):
+        name = entry.name
+        if(entry.is_dir() == 0 and name.endswith(".mp3")):
+            retag_mp3(name[0:-4], path+"/"+name)
+
+
+    
+    return(0)
+
+
+
+
+
+if( __name__ == "__main__" ): main(sys.argv)
