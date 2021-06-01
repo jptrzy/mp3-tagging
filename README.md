@@ -7,10 +7,15 @@ MP3-tagging is my personal script to automatically tag mp3.
 ```
 git clone https://github.com/jptrzy/mp3-tagging
 cd mp3-tagging
-sudo make install
+sudo python setup.py install
 ```
 
-### Manual/Git uninstall
+### UnInstallation
 ```
-sudo make uninstall
+sudo pip uninstall mp3-tagging
 ```
+
+## TODO
+* manual
+* long description
+* makefile
