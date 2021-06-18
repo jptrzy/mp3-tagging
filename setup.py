@@ -40,7 +40,7 @@ setup(
         'Operating System :: Unix',
     ],
     packages=['mp3_tagging'],  #same as name
-    install_requires=["mutagen"], #external packages as dependencies
+    install_requires=["music_tag"], #external packages as dependencies
     scripts=scripts_hack(
         ("mp3-tagging.py", "mp3-tagging")
     )
