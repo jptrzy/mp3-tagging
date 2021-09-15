@@ -1,4 +1,4 @@
-# mp3-tagging
+# Mp3-tagging
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/jptrzy/mp3-tagging?&label=Size&style=for-the-badge)
 ![GitHub last commit](https://img.shields.io/github/last-commit/jptrzy/mp3-tagging?style=for-the-badge)
