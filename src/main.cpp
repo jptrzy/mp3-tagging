@@ -31,7 +31,7 @@ https://wiki.xiph.org/Field_names
 
 #define LEN(S) sizeof(S)/sizeof(*S)
 
-char MUSIC_PATH[2048];
+std::string MUSIC_PATH;
 
 const wchar_t* cToWC(const char *c)
 {
@@ -42,33 +42,35 @@ const wchar_t* cToWC(const char *c)
     return wc;
 }
 
-void tagOgg(char* path, char* name){
+
+void tagOgg(std::string path, std::string name){
 
     // printf("[D] %s %s\n", path, name);
 
     char* array[6] = {};
     int lenght = 0;
 
-    char* old_name = (char *) calloc(strlen(name), 1);
-    strcpy(old_name, name);
-    while (char* token = strsep(&old_name, "-")){
-        if(lenght > 4){
-            printf("[E] \"%s\" have too many segments.\n", name);
-            return;
-            // break;
+    { // Need to find diffren method to split and put parts into arrays
+        int pos = 0;
+        std::string cut_name = name;
+        // std::cout << name << std::endl;
+        while ((pos = cut_name.find('-')) != std::string::npos) {
+            std::string token = cut_name.substr(0, pos);
+            array[lenght] = (char *) malloc(token.length());
+            token.copy(array[lenght++], token.length());
+            cut_name.erase(0, pos + 1);
         }
-        array[lenght++] = token;
-        // printf("%s\n", token);
+        array[lenght] = (char *) malloc(cut_name.length());
+        cut_name.copy(array[lenght++], cut_name.length());
+
+        // for(int i=0;i<lenght;i++){
+        //     std::cout << array[i] << "\n";
+        // }
     }
-    // printf("\n");
 
-    char* full_path = (char *) calloc(5 + strlen(name) + strlen(path), 1);
-    strcpy(full_path, path);
-    strcat(full_path, "/");
-    strcat(full_path, name);
-    strcat(full_path, ".ogg");
+    std::string full_path = path + "/" + name + ".ogg";
 
-    TagLib::Ogg::Vorbis::File vorbis_file(full_path);
+    TagLib::Ogg::Vorbis::File vorbis_file(full_path.c_str());
     TagLib::Ogg::XiphComment* vorbis_tag = vorbis_file.tag();
     vorbis_tag->removeAllFields();
     
@@ -105,10 +107,10 @@ void tagOgg(char* path, char* name){
 int main(int argc, char *argv[]){
     setlocale( LC_ALL, "" );
 
-    strcpy(MUSIC_PATH, getenv("HOME"));
-    strcat(MUSIC_PATH, "/Music");
+    MUSIC_PATH = getenv("HOME");
+    MUSIC_PATH += "/Music";
 
-    DIR* music_dir = opendir(MUSIC_PATH);
+    DIR* music_dir = opendir(MUSIC_PATH.c_str());
     if(!music_dir){
         printf("[E] Can't find music dir \"%s\".\n", MUSIC_PATH);
         return 1;

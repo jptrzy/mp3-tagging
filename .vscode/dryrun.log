@@ -1,0 +1,8 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory '/home/jptrzy/Builds/mp3-tagging'
+echo ogg-tagging build options:
+echo "GPP      = g++"
+rm -f ogg-tagging
+g++ -Ilib -Iinclude src/*.cpp -o ogg-tagging -I/usr/include/taglib -ltag -lz
+make: Leaving directory '/home/jptrzy/Builds/mp3-tagging'
+ 
