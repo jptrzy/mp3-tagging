@@ -20,7 +20,9 @@ https://wiki.xiph.org/Field_names
 #include <dirent.h>
 #include <fcntl.h>
 #include <errno.h>
-
+#include <string>
+#include <codecvt>
+#include <locale>
 
 #include <taglib/tag.h>
 #include <taglib/fileref.h>
@@ -33,40 +35,42 @@ https://wiki.xiph.org/Field_names
 
 std::string MUSIC_PATH;
 
-const wchar_t* cToWC(const char *c)
-{
-    const size_t cSize = strlen(c)+1;
-    wchar_t* wc = new wchar_t[cSize];
-    mbstowcs (wc, c, cSize);
+// const wchar_t* cToWC(const char *c)
+// {
+//     const size_t cSize = strlen(c)+1;
+//     wchar_t* wc = new wchar_t[cSize];
+//     mbstowcs (wc, c, cSize);
 
-    return wc;
+//     return wc;
+// }
+
+std::wstring sTW(std::string s){
+    return std::wstring_convert<std::codecvt_utf8<wchar_t>>().from_bytes(s);
 }
-
 
 void tagOgg(std::string path, std::string name){
 
     // printf("[D] %s %s\n", path, name);
 
-    char* array[6] = {};
+    std::wstring array[6] = {};
     int lenght = 0;
 
-    { // Need to find diffren method to split and put parts into arrays
+    {
         int pos = 0;
-        std::string cut_name = name;
+        std::string token, cut_name = name;
         // std::cout << name << std::endl;
         while ((pos = cut_name.find('-')) != std::string::npos) {
-            std::string token = cut_name.substr(0, pos);
-            array[lenght] = (char *) malloc(token.length());
-            token.copy(array[lenght++], token.length());
+            token = cut_name.substr(0, pos);
+            array[lenght++] = sTW(token);
             cut_name.erase(0, pos + 1);
         }
-        array[lenght] = (char *) malloc(cut_name.length());
-        cut_name.copy(array[lenght++], cut_name.length());
+        array[lenght++] = sTW(cut_name);;
 
         // for(int i=0;i<lenght;i++){
         //     std::cout << array[i] << "\n";
         // }
     }
+
 
     std::string full_path = path + "/" + name + ".ogg";
 
@@ -76,25 +80,25 @@ void tagOgg(std::string path, std::string name){
     
     switch(lenght){
         case 1 :
-            vorbis_tag->setTitle( cToWC(array[0]));
+            vorbis_tag->setTitle( array[0].c_str() );
         break; case 2 :
-            vorbis_tag->setArtist( cToWC(array[0]));
-            vorbis_tag->setTitle( cToWC(array[1]));
+            vorbis_tag->setArtist( array[0].c_str() );
+            vorbis_tag->setTitle( array[1].c_str() );
         break; case 3 :
-            vorbis_tag->setArtist( cToWC(array[0]));
-            vorbis_tag->setAlbum( cToWC(array[1]));
-            vorbis_tag->setTitle( cToWC(array[2]));
+            vorbis_tag->setArtist( array[0].c_str() );
+            vorbis_tag->setAlbum( array[1].c_str() );
+            vorbis_tag->setTitle( array[2].c_str() );
         break; case 4 :
-            vorbis_tag->setArtist( cToWC(array[0]));
-            vorbis_tag->setAlbum( cToWC(array[1]));
-            vorbis_tag->addField("TRACKNUMBER",  cToWC(array[2]), true);
-            vorbis_tag->setTitle( cToWC(array[3]));
+            vorbis_tag->setArtist( array[0].c_str() );
+            vorbis_tag->setAlbum( array[1].c_str() );
+            vorbis_tag->addField("TRACKNUMBER",  array[2].c_str() , true);
+            vorbis_tag->setTitle( array[3].c_str() );
         break; case 5 :
-            vorbis_tag->setArtist( cToWC(array[0]));
-            vorbis_tag->setAlbum( cToWC(array[1]));
-            vorbis_tag->addField("TRACKNUMBER",  cToWC(array[2]), true);
-            vorbis_tag->addField("TRACKTOTAL",  cToWC(array[3]), true);
-            vorbis_tag->setTitle( cToWC(array[4]));
+            vorbis_tag->setArtist( array[0].c_str() );
+            vorbis_tag->setAlbum( array[1].c_str() );
+            vorbis_tag->addField("TRACKNUMBER",  array[2].c_str() , true);
+            vorbis_tag->addField("TRACKTOTAL",  array[3].c_str() , true);
+            vorbis_tag->setTitle( array[4].c_str() );
         break; default:
             printf("[E] \"%s\" Default switch, this shouldn't heppend.\n", name);
         break;

@@ -1,15 +1,12 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # GNU Make 4.3
- 
 # Built for x86_64-pc-linux-gnu
- 
 # Copyright (C) 1988-2020 Free Software Foundation, Inc.
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
- 
 
-# Make data base, printed on Mon Jun 20 14:11:30 2022
+# Make data base, printed on Tue Jun 21 11:14:14 2022
 
 # Variables
 
@@ -22,11 +19,11 @@ NO_AT_BRIDGE = 1
 # environment
 I3SOCK = /run/user/1000/i3/ipc-socket.662
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-f9b24da6-c303-4fe2-8b32-df57dc036892.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-3572fa30-8ea9-4f8d-98f7-803abfccb929.sock
 # environment
-VSCODE_CWD = /home/jptrzy/Builds/mp3-tagging
+VSCODE_CWD = /home/jptrzy/Builds
 # environment
-WINDOWID = 50331654
+WINDOWID = 8388614
 # environment
 WINDOWPATH = 1
 # environment
@@ -46,7 +43,7 @@ PWD = /home/jptrzy/Builds/mp3-tagging
 # environment
 MAIL = /var/spool/mail/jptrzy
 # environment
-OLDPWD = /home/jptrzy/Builds
+OLDPWD = /home/jptrzy
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
 # environment
@@ -92,7 +89,7 @@ MAKEFILE_LIST := makefile
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_PID = 23887
+VSCODE_PID = 65681
 # environment
 XDG_SESSION_TYPE = tty
 # environment
@@ -120,7 +117,6 @@ LESS_TERMCAP_us = [1;4;31m
 # default
 MAKECMDGOALS := all
 # environment
- 
 SHLVL = 2
 # environment
 MAKELEVEL := 0
@@ -240,7 +236,6 @@ clean:
 
 # Not a target:
 .DEFAULT:
- 
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -278,6 +273,7 @@ options:
 #  Implicit rule search has not been done.
 #  Implicit/static pattern stem: ''
 #  File does not exist.
+ 
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # automatic
@@ -316,6 +312,6 @@ options:
 # strcache performance: lookups = 31 / hit rate = 45%
 # hash-table stats:
 # Load=17/8192=0%, Rehash=0, Collisions=0/31=0%
-# Finished Make data base on Mon Jun 20 14:11:30 2022
+# Finished Make data base on Tue Jun 21 11:14:14 2022
 
  
