@@ -33,16 +33,12 @@ https://wiki.xiph.org/Field_names
 
 #define LEN(S) sizeof(S)/sizeof(*S)
 
-std::string MUSIC_PATH;
 
-// const wchar_t* cToWC(const char *c)
-// {
-//     const size_t cSize = strlen(c)+1;
-//     wchar_t* wc = new wchar_t[cSize];
-//     mbstowcs (wc, c, cSize);
+// OPTIONS
+bool DEBUG = false;
+std::string MUSIC_PATH = getenv("HOME") + std::string("/Music");
 
-//     return wc;
-// }
+
 
 std::wstring sTW(std::string s){
     return std::wstring_convert<std::codecvt_utf8<wchar_t>>().from_bytes(s);
@@ -50,25 +46,27 @@ std::wstring sTW(std::string s){
 
 void tagOgg(std::string path, std::string name){
 
-    // printf("[D] %s %s\n", path, name);
+    if(DEBUG){
+        printf("[D] `%s` `%s`\n", path.c_str(), name.c_str());
+    } 
 
     std::wstring array[6] = {};
     int lenght = 0;
 
     {
         int pos = 0;
-        std::string token, cut_name = name;
+        std::wstring token, cut_name = sTW(name);
         // std::cout << name << std::endl;
-        while ((pos = cut_name.find('-')) != std::string::npos) {
+        while ((pos = cut_name.find('-')) != std::wstring::npos) {
+            if(lenght > 4){
+                printf("[E] `%s` have more segments then is allowed.\n", path.c_str(), name.c_str());
+                return;
+            }
             token = cut_name.substr(0, pos);
-            array[lenght++] = sTW(token);
+            array[lenght++] = token;
             cut_name.erase(0, pos + 1);
         }
-        array[lenght++] = sTW(cut_name);;
-
-        // for(int i=0;i<lenght;i++){
-        //     std::cout << array[i] << "\n";
-        // }
+        array[lenght++] = cut_name;;
     }
 
 
@@ -107,28 +105,60 @@ void tagOgg(std::string path, std::string name){
     vorbis_file.save();
 }
 
-
 int main(int argc, char *argv[]){
     setlocale( LC_ALL, "" );
 
-    MUSIC_PATH = getenv("HOME");
-    MUSIC_PATH += "/Music";
+
+
+    { /* Interpretate run options */
+        if(DEBUG){
+            printf("[D] Start reading run options\n");
+        }
+
+        for(int i=0; i < argc; i++){
+            if ( strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help")==0 ) {
+                printf(R"(Usage: ogg-tagging [OPTION...]
+
+-h, --help      prints this help message
+-p [PATH]       set music folder path to PATH
+-d, --debug     emit additional debugging messages
+
+)");
+                return 0;
+            }else if (strcmp(argv[i], "-d")==0 || strcmp(argv[i], "---debug")==0) {
+                DEBUG = true;
+            }else if (strcmp(argv[i], "-p")==0) {
+                if (++i < argc) {
+                    printf("%s\n", argv[i]);
+                    MUSIC_PATH=argv[i];
+                } else {
+                    printf("[W] You forget about [PATH] after -p flag.\n");
+                }
+            }
+        }
+
+        if(DEBUG){
+            printf("[D] End reading run options\n");
+        }
+    }
+
 
     DIR* music_dir = opendir(MUSIC_PATH.c_str());
     if(!music_dir){
-        printf("[E] Can't find music dir \"%s\".\n", MUSIC_PATH);
+        printf("[E] Can't find music dir `%s`.\n", MUSIC_PATH.c_str());
         return 1;
     }
-    // chdir(music_dir);
 
     struct dirent *dirp;
     while((dirp=readdir(music_dir))!=NULL){
-        if (dirp->d_type==4){ //FOLDER
-            // if(strcmp(dirp->d_name, ".")==0 || strcmp(dirp->d_name, "..")==0){
-            //     continue;
-            // }
-            // printf("%s %s\n", "FOLDER", dirp->d_name);
-        } else if (strcmp(strrchr(dirp->d_name,'.'), ".ogg") == 0) { //FILE
+
+        // if (dirp->d_type==4){ //FOLDER
+        //     // if(strcmp(dirp->d_name, ".")==0 || strcmp(dirp->d_name, "..")==0){
+        //     //     continue;
+        //     // }
+        //     // printf("%s %s\n", "FOLDER", dirp->d_name);
+        // }  
+        if (strrchr(dirp->d_name,'.') && strcmp(strrchr(dirp->d_name,'.'), ".ogg") == 0) { //FILE
             size_t strLen = strlen(dirp->d_name);
             dirp->d_name[4 <= strLen ? strLen-4 : 0] = '\0';
             tagOgg(MUSIC_PATH, dirp->d_name);
