@@ -11,17 +11,17 @@ MANPREFIX = $(PREFIX)/share/man
 LIBS = -I/usr/include/taglib -ltag -lz
 _LDFLAGS = $(LIBS) $(LDFLAGS)\
 
-GPP=g++
+CPP=g++
 
 all: options ogg-tagging
 
 options:
 		@echo ogg-tagging build options:
 		@echo "LDFLAGS = $(_LDFLAGS)"
-		@echo "GPP      = $(GPP)"
+		@echo "CPP      = $(CPP)"
 
 ogg-tagging: clean
-		$(GPP) -Ilib -Iinclude src/*.cpp -o $@ $(_LDFLAGS)
+		$(CPP) -Ilib -Iinclude src/*.cpp -o $@ $(_LDFLAGS)
 
 clean:
 		rm -f ogg-tagging
