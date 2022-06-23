@@ -53,7 +53,7 @@ void tagOgg(std::string path, std::string name){
     std::wstring array[6] = {};
     int lenght = 0;
 
-    {
+    { // Splits <name> by `-` into array
         int pos = 0;
         std::wstring token, cut_name = sTW(name);
         // std::cout << name << std::endl;
