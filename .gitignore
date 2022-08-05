@@ -1,15 +1,3 @@
 
-*.pyc
-*.pyo
+ogg-tagging
 
-__pycache__
-
-mp3_tagging.egg-info
-dist
-build_scripts
-build
-.eggs
-
-
-
-install_log.txt

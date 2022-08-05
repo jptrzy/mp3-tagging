@@ -53,21 +53,32 @@ void tagOgg(std::string path, std::string name){
     std::wstring array[6] = {};
     int lenght = 0;
 
-    { // Splits <name> by `-` into array
-        int pos = 0;
-        std::wstring token, cut_name = sTW(name);
-        // std::cout << name << std::endl;
-        while ((pos = cut_name.find('-')) != std::wstring::npos) {
-            if(lenght > 4){
-                printf("[E] `%s` have more segments then is allowed.\n", path.c_str(), name.c_str());
-                return;
-            }
-            token = cut_name.substr(0, pos);
-            array[lenght++] = token;
-            cut_name.erase(0, pos + 1);
-        }
-        array[lenght++] = cut_name;;
-    }
+	{ // Splits <name> by `-` into array
+		int pos = 0;
+		int limit = 0;
+		std::wstring token, cut_name = sTW(name);
+		// std::cout << name << std::endl;
+		while ((pos = cut_name.find('-', limit)) != std::wstring::npos) {
+			if (pos > 0 && cut_name[pos-1] == '\\' ) {
+				limit = pos+1;
+
+				// Removes \ from cut_name
+				cut_name = cut_name.substr(0, pos-1) + cut_name.substr(pos, cut_name.length()-1);
+				continue;	
+			}
+
+			limit = 0;
+
+			if (lenght > 4) {
+				printf("[E] `%s` have more segments then is allowed.\n", path.c_str(), name.c_str());
+				 return;
+			}
+			token = cut_name.substr(0, pos);
+			array[lenght++] = token;
+			cut_name.erase(0, pos + 1);
+		}
+		array[lenght++] = cut_name;;
+	}
 
 
     std::string full_path = path + "/" + name + ".ogg";
@@ -106,8 +117,9 @@ void tagOgg(std::string path, std::string name){
 }
 
 int main(int argc, char *argv[]){
-    setlocale( LC_ALL, "" );
-
+  
+ 
+	setlocale( LC_ALL, "" );
 
 
     { /* Interpretate run options */
