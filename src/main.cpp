@@ -7,6 +7,8 @@ This program automaticly tags music (only ogg) files basing on their names.
 3 <ARTIST>-<ALBUM>-<TITLE>.<EXT>
 4 <ARTIST>-<ALBUM>-<TRACK>-<TITLE>.<EXT>
 5 <ARTIST>-<ALBUM>-<TRACK>-<TRACKTOTAL>-<TITLE>.<EXT>
+## Exception
+If before `-` is another `-` then it wouldn't split TAGS.
 
 # Links:
 https://wiki.xiph.org/Field_names
@@ -59,18 +61,25 @@ void tagOgg(std::string path, std::string name){
 		std::wstring token, cut_name = sTW(name);
 		// std::cout << name << std::endl;
 		while ((pos = cut_name.find('-', limit)) != std::wstring::npos) {
-			if (pos > 0 && cut_name[pos-1] == '\\' ) {
-				limit = pos+1;
+			// if (pos > 0 && cut_name[pos-1] == '\\' ) {
+			// 	limit = pos+1;
+
+			// 	// Removes \ from cut_name
+			// 	cut_name = cut_name.substr(0, pos-1) + cut_name.substr(pos, cut_name.length()-1);
+			// 	continue;	
+			// }
+            if (pos+1 < cut_name.length() && cut_name[pos+1] == '-') {
+				limit = pos+2;
 
 				// Removes \ from cut_name
-				cut_name = cut_name.substr(0, pos-1) + cut_name.substr(pos, cut_name.length()-1);
+				cut_name = cut_name.substr(0, pos) + cut_name.substr(pos+1, cut_name.length()-1);
 				continue;	
 			}
 
 			limit = 0;
 
 			if (lenght > 4) {
-				printf("[E] `%s` have more segments then is allowed.\n", path.c_str(), name.c_str());
+				printf("[E] `%s/%s` have more segments then is allowed; Last was '%s'.\n", path.c_str(), name.c_str(), array[4].c_str());
 				 return;
 			}
 			token = cut_name.substr(0, pos);
