@@ -1,15 +1,22 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # GNU Make 4.3
+ 
 # Built for x86_64-pc-linux-gnu
+ 
 # Copyright (C) 1988-2020 Free Software Foundation, Inc.
+ 
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+ 
 # This is free software: you are free to change and redistribute it.
+ 
 # There is NO WARRANTY, to the extent permitted by law.
+ 
 
-# Make data base, printed on Thu Jun 23 12:32:08 2022
+# Make data base, printed on Fri Nov  4 11:39:28 2022
 
 # Variables
 
+ 
 # environment
 GDK_BACKEND = x11
 # default
@@ -19,23 +26,37 @@ LC_ALL = C
 # environment
 NO_AT_BRIDGE = 1
 # environment
-I3SOCK = /run/user/1000/i3/ipc-socket.662
+PSPDEV = /usr/local/pspdev
+# environment
+I3SOCK = /run/user/1000/i3/ipc-socket.696
 # default
 FFLAGS := -O1
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-9fd063b8-714e-43e4-b72e-f5b286a5aa87.sock
+CSF_EXCEPTION_PROMPT = 1
+# environment
+CSF_XmlOcafResource = /usr/share/opencascade/resources/XmlOcafResource
 # environment
 VSCODE_CWD = /home/jptrzy/Builds/mp3-tagging
 # environment
-WINDOWID = 75497478
-# environment
-WINDOWPATH = 1
+WINDOWID = 48234502
 # makefile (from 'makefile', line 11)
 LIBS = -I/usr/include/taglib -ltag -lz
 # environment
+MMGT_CLEAR = 1
+# environment
 LESS_TERMCAP_me = [0m
+# environment
+CSF_XCAFDefaults = /usr/share/opencascade/resources/StdResource
+# environment
+CSF_PluginDefaults = /usr/share/opencascade/resources/StdResource
+# environment
+CASROOT = /usr
 # default
 MAKE_COMMAND := make
+# environment
+HISTFILE = /home/jptrzy/.local/state/bash/history
+# environment
+GOPATH = /home/jptrzy/go
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
 # environment
@@ -49,19 +70,21 @@ PWD = /home/jptrzy/Builds/mp3-tagging
 # environment
 MAIL = /var/spool/mail/jptrzy
 # environment
+XDG_DATA_DIRS = /home/jptrzy/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share/:/usr/share/
+# environment
 OLDPWD = /home/jptrzy/Builds
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
-# environment
-VSCODE_LOG_STACK = false
 # automatic
 %F = $(notdir $%)
 # environment
-VSCODE_CODE_CACHE_PATH = /home/jptrzy/.config/Code - OSS/CachedData/30d9c6cd9483b2cc586687151bcbcd635f373630
+VSCODE_CODE_CACHE_PATH = /home/jptrzy/.config/Code - OSS/CachedData/129500ee4c8ab7263461ffe327268ba56b9f210d
+# environment
+CSF_ShadersDirectory = /usr/share/opencascade/resources/Shaders
 # environment
 LANG = C
 # environment
-XAUTHORITY = /home/jptrzy/.Xauthority
+XAUTHORITY = /home/jptrzy/.local/share/sx/xauthority
 # default
 .LOADED := 
 # environment
@@ -74,20 +97,20 @@ MAKEFLAGS = pqrR
 LESS_TERMCAP_so = [01;33m
 # makefile
 CURDIR := /home/jptrzy/Builds/mp3-tagging
-# environment
-VSCODE_PIPE_LOGGING = true
-# environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # makefile (from 'makefile', line 5)
 VERSION = 0.1.0
+# environment
+BUN_INSTALL = /home/jptrzy/.bun
 # environment
 LESS_TERMCAP_ue = [0m
 # environment
 MFLAGS = -pqrR
 # default
 .SHELLFLAGS := -ec
+# environment
+CSF_MDTVTexturesDirectory = /usr/share/opencascade/resources/Textures
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # makefile (from 'makefile', line 1)
@@ -95,21 +118,23 @@ MAKEFILE_LIST := makefile
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_VERBOSE_LOGGING = true
-# environment
-VSCODE_PID = 223324
+VSCODE_PID = 58689
 # environment
 XDG_SESSION_TYPE = tty
-# environment
-CUDA_PATH = /opt/cuda
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
+CSF_XSMessage = /usr/share/opencascade/resources/XSMessage
+# environment
 XDG_DATA_HOME = /home/jptrzy/.local/share
+# environment
+DRAWDEFAULT = /usr/share/opencascade/resources/DrawResources/DrawDefault
 # automatic
 *F = $(notdir $*)
 # environment
 CHROME_DESKTOP = code-oss.desktop
+# environment
+CSF_SHMessage = /usr/share/opencascade/resources/SHMessage
 # environment
 DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
 # automatic
@@ -125,7 +150,11 @@ LESS_TERMCAP_us = [1;4;31m
 # default
 MAKECMDGOALS := all
 # environment
-SHLVL = 2
+DOTNET_BUNDLE_EXTRACT_BASE_DIR = /home/jptrzy/.cache/dotnet_bundle_extract
+# environment
+SHLVL = 1
+# environment
+CSF_TObjDefaults = /usr/share/opencascade/resources/StdResource
 # environment
 MAKELEVEL := 0
 # default
@@ -133,31 +162,38 @@ MAKE = $(MAKE_COMMAND)
 # default
 FC := fort77
 # environment
-PATH = /usr/local/sbin:/usr/local/bin:/usr/bin:/opt/cuda/bin:/opt/cuda/nsight_compute:/opt/cuda/nsight_systems/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/jptrzy/.local/bin
+PATH = /home/jptrzy/.bun/bin:/home/jptrzy/go/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/home/jptrzy/.dotnet/tools:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/jptrzy/.local/bin:/usr/local/pspdev/bin
 # environment
 LESS_TERMCAP_se = [0m
 # default
 MAKEFILES := 
 # environment
 MOTD_SHOWN = pam
+# environment
+CSF_OCCTResourcePath = /usr/share/opencascade/resources
 # automatic
 ^F = $(notdir $^)
-# makefile (from 'makefile', line 14)
-GPP = g++
 # environment
 LESS_TERMCAP_mb = [1;32m
-# environment
-GRADLE_HOME = /usr/share/java/gradle
+ 
 # makefile (from 'makefile', line 8)
 PREFIX = /usr/local
 # environment
 XDG_CONFIG_HOME = /home/jptrzy/.config
 # environment
-VSCODE_LOG_NATIVE = false
+INVOCATION_ID = 25acb0aa9f3f46aaac19bb2ccf90c35b
+# makefile (from 'makefile', line 14)
+CPP = g++
+# environment
+CSF_StandardLiteDefaults = /usr/share/opencascade/resources/StdResource
+# environment
+CSF_STEPDefaults = /usr/share/opencascade/resources/XSTEPResource
 # automatic
 ?F = $(notdir $?)
 # environment
 XDG_SEAT = seat0
+# environment
+CSF_MIGRATION_TYPES = /usr/share/opencascade/resources/StdResource/MigrationSheet.txt
 # makefile (from 'makefile', line 12)
 _LDFLAGS = $(LIBS) $(LDFLAGS) 
 # environment
@@ -173,15 +209,19 @@ BROWSER = brave
 # environment
 LOGNAME = jptrzy
 # environment
-TERMINAL = st
+CSF_LANGUAGE = us
 # environment
 XDG_VTNR = 1
 # makefile
 .DEFAULT_GOAL := all
 # environment
+SYSTEMD_EXEC_PID = 469
+# environment
+CSF_TObjMessage = /usr/share/opencascade/resources/TObj
+# environment
 EDITOR = gedit
 # environment
-DISPLAY = :0
+DISPLAY = :1
 # environment
 GTK_MODULES = canberra-gtk-module
 # environment
@@ -191,13 +231,15 @@ MAKE_VERSION := 4.3
 # default
 SCCSGETFLAGS := -s
 # environment
-DEBUGINFOD_URLS = https://debuginfod.archlinux.org 
-# environment
 _ = /usr/bin/make
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # default
 CFLAGS := -O1
+# environment
+CSF_DrawPluginDefaults = /usr/share/opencascade/resources/DrawResources
+# environment
+CSF_IGESDefaults = /usr/share/opencascade/resources/XSTEPResource
 # environment
 VISUAL = gedit
 # environment
@@ -205,13 +247,17 @@ XDG_SESSION_CLASS = user
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
+GTK2_RC_FILES = /home/jptrzy/.config/gtk-2.0/gtkrc
+# environment
 HOME = /home/jptrzy
 # makefile (from 'makefile', line 9)
 MANPREFIX = $(PREFIX)/share/man
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-VSCODE_IPC_HOOK = /run/user/1000/vscode-258ca1ee-1.68.1-main.sock
+DRAWHOME = /usr/share/opencascade/resources/DrawResources
+# environment
+VSCODE_IPC_HOOK = /run/user/1000/vscode-258ca1ee-1.72.1-main.sock
 # environment
 TERM = st-256color
 # environment
@@ -220,18 +266,26 @@ XDG_SESSION_ID = 1
 .RECIPEPREFIX := 
 # automatic
 <F = $(notdir $<)
+# environment
+XDG_STATE_HOME = /home/jptrzy/.local/state
 # default
 SUFFIXES := 
+# environment
+XDG_CACHE_HOME = /home/jptrzy/.cache
 # environment
 VSCODE_CLI = 1
 # environment
 ELECTRON_NO_ATTACH_CONSOLE = 1
+# environment
+CSF_StandardDefaults = /usr/share/opencascade/resources/StdResource
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync check-symlink guile load
 # default
 CC := c99
+# environment
+DOTNET_ROOT = /usr/share/dotnet
 # variable set hash-table stats:
-# Load=110/1024=11%, Rehash=0, Collisions=18/148=12%
+# Load=133/1024=13%, Rehash=0, Collisions=15/171=9%
 
 # Pattern-specific Variable Values
 
@@ -239,9 +293,10 @@ CC := c99
 
 # Directories
 
-# . (device 2050, inode 21282870): 10 files, no impossibilities.
+ 
+# . (device 2050, inode 13239127): 12 files, no impossibilities.
 
-# 10 files, no impossibilities in 1 directories.
+# 12 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -278,12 +333,21 @@ all: options ogg-tagging
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/7=0%
 
+test: options ogg-tagging
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 37):
+	rm -rf test/Yes-Fragile-1*
+	cp ~/Downloads/Yes-Fragile-1* test/
+	./ogg-tagging -p test
+
 ogg-tagging: clean
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'makefile', line 24):
-		$(GPP) -Ilib -Iinclude src/*.cpp -o $@ $(_LDFLAGS)
+		$(CPP) -Ilib -Iinclude src/*.cpp -o $@ $(_LDFLAGS)
 
 .POSIX:
 #  Implicit rule search has not been done.
@@ -293,8 +357,7 @@ ogg-tagging: clean
 # Not a target:
 makefile:
 #  Implicit rule search has been done.
- 
-#  Last modified 2022-06-22 14:30:45.653369269
+#  Last modified 2022-11-04 11:38:59.488128157
 #  File has been updated.
 #  Successfully updated.
 
@@ -339,22 +402,23 @@ options:
 #  recipe to execute (from 'makefile', line 19):
 		@echo ogg-tagging build options:
 		@echo "LDFLAGS = $(_LDFLAGS)"
-		@echo "GPP      = $(GPP)"
+		@echo "CPP      = $(CPP)"
 
 # files hash-table stats:
-# Load=10/1024=1%, Rehash=0, Collisions=0/29=0%
+ 
+# Load=11/1024=1%, Rehash=0, Collisions=0/32=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 20 / storage = 166 B / avg = 8 B
-# current buf: size = 8162 B / used = 166 B / count = 20 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 22 / storage = 185 B / avg = 8 B
+# current buf: size = 8162 B / used = 185 B / count = 22 / avg = 8 B
 
-# strcache performance: lookups = 38 / hit rate = 47%
+# strcache performance: lookups = 44 / hit rate = 50%
 # hash-table stats:
-# Load=20/8192=0%, Rehash=0, Collisions=0/38=0%
-# Finished Make data base on Thu Jun 23 12:32:08 2022
+# Load=22/8192=0%, Rehash=0, Collisions=0/44=0%
+# Finished Make data base on Fri Nov  4 11:39:28 2022
 
  

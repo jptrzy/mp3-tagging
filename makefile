@@ -32,3 +32,9 @@ install: all
 
 uninstall:
 	rm "${DESTDIR}${PREFIX}/bin/ogg-tagging"
+
+test: options ogg-tagging
+	rm -rf test/Yes-Fragile-1*
+	cp ~/Downloads/Yes-Fragile-1* test/
+
+	./ogg-tagging -p test

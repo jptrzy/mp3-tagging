@@ -43,32 +43,24 @@ std::string MUSIC_PATH = getenv("HOME") + std::string("/Music");
 
 
 std::wstring sTW(std::string s){
-    return std::wstring_convert<std::codecvt_utf8<wchar_t>>().from_bytes(s);
+	return std::wstring_convert<std::codecvt_utf8<wchar_t>>().from_bytes(s);
 }
 
 void tagOgg(std::string path, std::string name){
 
-    if(DEBUG){
-        printf("[D] `%s` `%s`\n", path.c_str(), name.c_str());
-    } 
+	if(DEBUG){
+		printf("[D] `%s` `%s`\n", path.c_str(), name.c_str());
+	} 
 
-    std::wstring array[6] = {};
-    int lenght = 0;
+	std::wstring array[6] = {};
+	int lenght = 0;
 
 	{ // Splits <name> by `-` into array
 		int pos = 0;
 		int limit = 0;
 		std::wstring token, cut_name = sTW(name);
-		// std::cout << name << std::endl;
 		while ((pos = cut_name.find('-', limit)) != std::wstring::npos) {
-			// if (pos > 0 && cut_name[pos-1] == '\\' ) {
-			// 	limit = pos+1;
-
-			// 	// Removes \ from cut_name
-			// 	cut_name = cut_name.substr(0, pos-1) + cut_name.substr(pos, cut_name.length()-1);
-			// 	continue;	
-			// }
-            if (pos+1 < cut_name.length() && cut_name[pos+1] == '-') {
+			if (pos+1 < cut_name.length() && cut_name[pos+1] == '-') {
 				limit = pos+2;
 
 				// Removes \ from cut_name
@@ -89,13 +81,19 @@ void tagOgg(std::string path, std::string name){
 		array[lenght++] = cut_name;;
 	}
 
+	std::string full_path = path + "/" + name + ".ogg";
 
-    std::string full_path = path + "/" + name + ".ogg";
+	TagLib::Ogg::Vorbis::File vorbis_file(full_path.c_str());
 
-    TagLib::Ogg::Vorbis::File vorbis_file(full_path.c_str());
-    TagLib::Ogg::XiphComment* vorbis_tag = vorbis_file.tag();
-    vorbis_tag->removeAllFields();
-    
+	if (!vorbis_file.isValid()) {
+		printf("File is not valid. It could be not a vorbis type file; you can check it by using ogginfo (from 'vorbis-tools' package)\n");
+		return;
+	}
+
+	TagLib::Ogg::XiphComment* vorbis_tag = vorbis_file.tag();
+
+	vorbis_tag->removeAllFields();
+
     switch(lenght){
         case 1 :
             vorbis_tag->setTitle( array[0].c_str() );
@@ -126,67 +124,58 @@ void tagOgg(std::string path, std::string name){
 }
 
 int main(int argc, char *argv[]){
-  
- 
 	setlocale( LC_ALL, "" );
 
 
-    { /* Interpretate run options */
-        if(DEBUG){
-            printf("[D] Start reading run options\n");
-        }
+	{ /* Interpretate run options */
+		if(DEBUG){
+			printf("[D] Start reading run options\n");
+		}
 
-        for(int i=0; i < argc; i++){
-            if ( strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help")==0 ) {
-                printf(R"(Usage: ogg-tagging [OPTION...]
+		for(int i=0; i < argc; i++){
+			if ( strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help")==0 ) {
+					printf(R"(Usage: ogg-tagging [OPTION...]
 
 -h, --help      prints this help message
 -p [PATH]       set music folder path to PATH
--d, --debug     emit additional debugging messages
+-v, --verbose     emit additional debugging messages
 
 )");
-                return 0;
-            }else if (strcmp(argv[i], "-d")==0 || strcmp(argv[i], "---debug")==0) {
-                DEBUG = true;
-            }else if (strcmp(argv[i], "-p")==0) {
-                if (++i < argc) {
-                    printf("%s\n", argv[i]);
-                    MUSIC_PATH=argv[i];
-                } else {
-                    printf("[W] You forget about [PATH] after -p flag.\n");
-                }
-            }
-        }
+					return 0;
+			}else if (strcmp(argv[i], "-v")==0 || strcmp(argv[i], "--verbose")==0) {
+					DEBUG = true;
+			}else if (strcmp(argv[i], "-p")==0) {
+					if (++i < argc) {
+						printf("%s\n", argv[i]);
+						MUSIC_PATH=argv[i];
+					} else {
+						printf("[W] You forget about [PATH] after -p flag.\n");
+					}
+			}
+		}
 
-        if(DEBUG){
-            printf("[D] End reading run options\n");
-        }
-    }
+		if(DEBUG){
+			printf("[D] End reading run options\n");
+		}
+	}
 
 
-    DIR* music_dir = opendir(MUSIC_PATH.c_str());
-    if(!music_dir){
-        printf("[E] Can't find music dir `%s`.\n", MUSIC_PATH.c_str());
-        return 1;
-    }
+	DIR* music_dir = opendir(MUSIC_PATH.c_str());
+	if(!music_dir){
+		printf("[E] Can't find music dir `%s`.\n", MUSIC_PATH.c_str());
+		return 1;
+	}
 
-    struct dirent *dirp;
-    while((dirp=readdir(music_dir))!=NULL){
+	struct dirent *dirp;
+	while((dirp=readdir(music_dir))!=NULL){
+		if (strrchr(dirp->d_name,'.') && strcmp(strrchr(dirp->d_name,'.'), ".ogg") == 0) { //FILE
+			size_t strLen = strlen(dirp->d_name);
+			dirp->d_name[4 <= strLen ? strLen-4 : 0] = '\0';
+			tagOgg(MUSIC_PATH, dirp->d_name);
+		}
+	}
 
-        // if (dirp->d_type==4){ //FOLDER
-        //     // if(strcmp(dirp->d_name, ".")==0 || strcmp(dirp->d_name, "..")==0){
-        //     //     continue;
-        //     // }
-        //     // printf("%s %s\n", "FOLDER", dirp->d_name);
-        // }  
-        if (strrchr(dirp->d_name,'.') && strcmp(strrchr(dirp->d_name,'.'), ".ogg") == 0) { //FILE
-            size_t strLen = strlen(dirp->d_name);
-            dirp->d_name[4 <= strLen ? strLen-4 : 0] = '\0';
-            tagOgg(MUSIC_PATH, dirp->d_name);
-        }
-    }
+	closedir(music_dir);
 
-    closedir(music_dir);
-
-    return 0;
+	return 0;
 }
